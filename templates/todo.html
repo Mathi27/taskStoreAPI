@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple To-Do App</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin: 10px 0; }
+        .done { text-decoration: line-through; color: gray; }
+        button { margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <form action="/add" method="post">
+        <input type="text" name="task" placeholder="Add a new task" required>
+        <button type="submit">Add</button>
+    </form>
+    <ul>
+    {% for todo in todos %}
+        <li>
+            <span class="{{ 'done' if todo.done else '' }}">{{ todo.task }}</span>
+            <a href="/toggle/{{ loop.index0 }}"><button>{{ 'Undo' if todo.done else 'Done' }}</button></a>
+            <a href="/delete/{{ loop.index0 }}"><button>Delete</button></a>
+        </li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
